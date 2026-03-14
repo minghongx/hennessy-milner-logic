@@ -1,0 +1,30 @@
+cabal-version:      3.14
+
+name:               hml
+version:            0.1
+category:           Logic
+synopsis:           Hennessy–Milner logic
+stability:          alpha
+
+author:             Minghong Xu
+maintainer:         github@minghongxu.name
+
+source-repository head
+  type: git
+  location: https://github.com/minghongx/hennessy-milner-logic
+
+common defaults
+    default-language: GHC2024
+    default-extensions:
+        UnicodeSyntax
+        TupleSections
+    ghc-options:      -Wall
+
+library
+    import:           defaults
+    hs-source-dirs:   lib
+    exposed-modules:  HML
+    other-modules:    LTS
+    build-depends:
+        base       ^>=4.22.0.0
+      , containers ^>=0.8
