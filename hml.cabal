@@ -18,7 +18,9 @@ common defaults
     default-extensions:
         UnicodeSyntax
         TupleSections
-    ghc-options:      -Wall
+    ghc-options:
+        -Wall
+        -pgmL ./unlit
 
 library
     import:           defaults

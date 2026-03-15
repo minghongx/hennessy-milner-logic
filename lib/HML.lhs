@@ -1,5 +1,3 @@
-\begin{code}
-
+```haskell
 module HML where
-
-\end{code}
+```

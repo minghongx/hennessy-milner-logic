@@ -1,5 +1,3 @@
-\begin{code}
-
+```haskell
 module LTS where
-
-\end{code}
+```
