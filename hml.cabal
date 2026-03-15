@@ -16,7 +16,7 @@ source-repository head
 common defaults
     default-language: GHC2024
     default-extensions:
-        UnicodeSyntax
+        LambdaCase
         TupleSections
     ghc-options:
         -Wall
