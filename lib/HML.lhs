@@ -23,7 +23,7 @@ data Form a
     | Dis (Form a) (Form a)
     | Dia a (Form a)
     | Box a (Form a)
-    deriving (Eq, Ord, Show)
+    deriving (Eq, Ord)
 ```
 We recover negation as a function that transforms a formula into its negated form.
 ```haskell
@@ -31,10 +31,10 @@ neg :: Form a -> Form a
 neg = \case
     TT -> FF
     FF -> TT
-    Con p q -> Dis (neg p) (neg q)
-    Dis p q -> Con (neg p) (neg q)
-    Dia a p -> Box a (neg p)
-    Box a p -> Dia a (neg p)
+    Con f1 f2 -> Dis (neg f1) (neg f2)
+    Dis f1 f2 -> Con (neg f1) (neg f2)
+    Dia a f -> Box a (neg f)
+    Box a f -> Dia a (neg f)
 ```
 Treating $ff$ as primitive and negation as derived has a technical advantage: recursive definitions on the structure of formulae (e.g. satisfaction relation) can be given in a uniform way.
 
@@ -52,3 +52,16 @@ boxS :: Set a -> Form a -> Form a
 boxS as p = S.foldr (\a acc -> Con (Box a p) acc) TT as
 ```
 They make common expression, such as deadlock $["Act"]ff$ and $a$-transition must happen next $chevron.l a chevron.r #h(0pt,weak:true) tt and ["Act" without {a}]ff$, much more perspicuous.
+
+/*
+```haskell
+instance Show a => Show (Form a) where
+    show = \case
+        TT -> "tt"
+        FF -> "ff"
+        Con f1 f2 -> "(" ++ show f1 ++ " ∧ " ++ show f2 ++ ")"
+        Dis f1 f2 -> "(" ++ show f1 ++ " ∨ " ++ show f2 ++ ")"
+        Dia a  f  -> "⟨" ++ show a ++ "⟩" ++ show f
+        Box a  f  -> "[" ++ show a ++ "]" ++ show f
+```
+*/
