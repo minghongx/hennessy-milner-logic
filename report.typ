@@ -3,5 +3,6 @@
 
 #bibliography("references.yml",
   title: "References",
-  style: "association-for-computing-machinery"
+  style: "association-for-computing-machinery",
+  full: true,
 )
