@@ -71,12 +71,12 @@ instance Show a => Show (Form a) where
 */
 
 ```haskell
-(|=) :: FiniteLTS s a -> s -> Form a -> Bool
-(|=) lts s = \case
+satisfy :: FiniteLTS s a -> s -> Form a -> Bool
+satisfy lts s = \case
     TT        -> True
     FF        -> False
-    Con f1 f2 -> (|=) lts s f1 && (|=) lts s f2
-    Dis f1 f2 -> (|=) lts s f1 || (|=) lts s f2
-    Dia a  f  -> any (\s' -> (|=) lts s' f) (image lts s a)
-    Box a  f  -> all (\s' -> (|=) lts s' f) (image lts s a)
+    Con f1 f2 -> satisfy lts s f1 && satisfy lts s f2
+    Dis f1 f2 -> satisfy lts s f1 || satisfy lts s f2
+    Dia a  f  -> any (\s' -> satisfy lts s' f) (image lts s a)
+    Box a  f  -> all (\s' -> satisfy lts s' f) (image lts s a)
 ```
