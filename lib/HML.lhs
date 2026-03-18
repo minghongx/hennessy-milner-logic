@@ -2,8 +2,12 @@
 ```haskell
 module HML where
 
-import Data.Set (Set)
-import qualified Data.Set as S
+import LTS (FiniteLTS, image)
+
+import Data.HashSet (HashSet)
+import qualified Data.HashSet as S
+
+type Set = HashSet
 ```
 */
 
@@ -23,7 +27,7 @@ data Form a
     | Dis (Form a) (Form a)
     | Dia a (Form a)
     | Box a (Form a)
-    deriving (Eq, Ord)
+    deriving (Eq)
 ```
 We recover negation as a function that transforms a formula into its negated form.
 ```haskell
@@ -65,3 +69,14 @@ instance Show a => Show (Form a) where
         Box a  f  -> "[" ++ show a ++ "]" ++ show f
 ```
 */
+
+```haskell
+(|=) :: FiniteLTS s a -> s -> Form a -> Bool
+(|=) lts s = \case
+    TT        -> True
+    FF        -> False
+    Con f1 f2 -> (|=) lts s f1 && (|=) lts s f2
+    Dis f1 f2 -> (|=) lts s f1 || (|=) lts s f2
+    Dia a  f  -> any (\s' -> (|=) lts s' f) (image lts s a)
+    Box a  f  -> all (\s' -> (|=) lts s' f) (image lts s a)
+```

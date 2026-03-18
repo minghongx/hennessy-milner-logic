@@ -16,6 +16,8 @@ source-repository head
 common defaults
     default-language: GHC2024
     default-extensions:
+        GADTSyntax
+        NamedFieldPuns
         LambdaCase
         TupleSections
     ghc-options:
@@ -28,5 +30,5 @@ library
     exposed-modules:  HML
     other-modules:    LTS
     build-depends:
-        base       ^>=4.22.0.0
-      , containers ^>=0.8
+        base ^>=4.22.0.0
+      , unordered-containers ^>=0.2.21, hashable
