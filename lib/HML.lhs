@@ -14,6 +14,7 @@ type Set = HashSet
 
 #let tt = math.italic("tt")
 #let ff = math.italic("ff")
+#let satisfies = math.forces
 
 Given a set of actions Act, a formula of HML is defined by the BNF grammar:
 $ phi ::= tt | ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in "Act" $
@@ -71,21 +72,28 @@ instance Show a => Show (Form a) where
 ```
 */
 
+$
+s &satisfies tt #h(6em) && \
+s &satisfies phi_1 and phi_2 && "if" s satisfies phi_1 "and" s satisfies phi_2 \
+s &satisfies phi_1 or  phi_2 && "if" s satisfies phi_1 "or"  s satisfies phi_2 \
+s &satisfies chevron.l a chevron.r phi && "if" exists s'. s' in "image"(s, a) and s' satisfies phi \
+s &satisfies [a] phi && "if" forall s'. s' in "image"(s, a) -> s' satisfies phi
+$
 ```haskell
 satisfy :: FiniteLTS s a -> s -> Form a -> Bool
 satisfy lts s =
-  let (|=)  = satisfy   lts
+  let (⊩)   = satisfy   lts
       image = LTS.image lts
    in \case
         TT -> True
         FF -> False
-        Con f1 f2 -> s |= f1 && s |= f2
-        Dis f1 f2 -> s |= f1 || s |= f2
-        Dia a f -> any (\s' -> s' |= f) (image s a)
-        Box a f -> all (\s' -> s' |= f) (image s a)
+        Con f1 f2 -> s ⊩ f1 && s ⊩ f2
+        Dis f1 f2 -> s ⊩ f1 || s ⊩ f2
+        Dia a f -> any (\s' -> s' ⊩ f) (image s a)
+        Box a f -> all (\s' -> s' ⊩ f) (image s a)
 ```
 
 ```haskell
 denotation :: FiniteLTS s a -> Form a -> Set s
-denotation lts f = let (|=) = satisfy lts in S.filter (\s -> s |= f) lts.states
+denotation lts f = let (⊩) = satisfy lts in S.filter (\s -> s ⊩ f) lts.states
 ```
