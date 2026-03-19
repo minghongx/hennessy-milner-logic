@@ -2,7 +2,7 @@
 ```haskell
 module HML where
 
-import LTS (FiniteLTS, image)
+import LTS (FiniteLTS(..), image)
 
 import Data.HashSet (HashSet)
 import qualified Data.HashSet as S
@@ -72,16 +72,18 @@ instance Show a => Show (Form a) where
 
 ```haskell
 satisfy :: FiniteLTS s a -> s -> Form a -> Bool
-satisfy lts s = \case
-    TT        -> True
-    FF        -> False
-    Con f1 f2 -> satisfy lts s f1 && satisfy lts s f2
-    Dis f1 f2 -> satisfy lts s f1 || satisfy lts s f2
-    Dia a  f  -> any (\s' -> satisfy lts s' f) (image lts s a)
-    Box a  f  -> all (\s' -> satisfy lts s' f) (image lts s a)
+satisfy lts s =
+  let (|=) = satisfy lts
+   in \case
+        TT -> True
+        FF -> False
+        Con f1 f2 -> s |= f1 && s |= f2
+        Dis f1 f2 -> s |= f1 || s |= f2
+        Dia a f -> any (\s' -> s' |= f) (image lts s a)
+        Box a f -> all (\s' -> s' |= f) (image lts s a)
 ```
 
 ```haskell
 denotation :: FiniteLTS s a -> Form a -> Set s
-denotation lts f = S.filter (\s -> satisfy lts s f) lts.states
+denotation lts f = let (|=) = satisfy lts in S.filter (\s -> s |= f) lts.states
 ```
