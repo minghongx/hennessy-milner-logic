@@ -1,3 +1,8 @@
+#import "@preview/thmbox:0.3.0": *
+#show: thmbox-init()
+
+#let proposition = proposition.with(color: gray)
+
 /*
 ```haskell
 module HML where
@@ -14,7 +19,6 @@ type Set = HashSet
 
 #let tt = math.italic("tt")
 #let ff = math.italic("ff")
-#let satisfies = math.forces
 
 Given a set of actions Act, a formula of HML is defined by the BNF grammar:
 $ phi ::= tt | ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in "Act" $
@@ -44,7 +48,7 @@ neg = \case
 ```
 Treating $ff$ as primitive and negation as derived has a technical advantage: recursive definitions on the structure of formulae (e.g. satisfaction relation) can be given in a uniform way.
 
-We also introduce derived modalities indexed by sets of actions:
+We introduce two abbreviations for sets of actions:
 $
 chevron.l A chevron.r phi := or.big_(a_n in A) chevron.l a_n chevron.r phi, "with" chevron.l emptyset chevron.r phi = ff
 wide wide
@@ -57,7 +61,7 @@ diaS as p = S.foldr (\a acc -> Dis (Dia a p) acc) FF as
 boxS :: Set a -> Form a -> Form a
 boxS as p = S.foldr (\a acc -> Con (Box a p) acc) TT as
 ```
-They make common expression, such as deadlock $["Act"]ff$ and $a$-transition must happen next $chevron.l a chevron.r #h(0pt,weak:true) tt and ["Act" without {a}]ff$, much more perspicuous.
+They make common expression, such as _deadlock_ $["Act"]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r #h(0pt,weak:true) tt and ["Act" without {a}]ff$, much more perspicuous.
 
 /*
 ```haskell
@@ -72,6 +76,9 @@ instance Show a => Show (Form a) where
 ```
 */
 
+#let satisfies = math.forces
+
+Suppose $s$ is a state in a LTS. Then we recursively define the notion of a formula $phi$ being _satisfied_ in LTS at state $s$ as follow:
 $
 s &satisfies tt #h(6em) && \
 s &satisfies phi_1 and phi_2 && "if" s satisfies phi_1 "and" s satisfies phi_2 \
@@ -93,7 +100,26 @@ satisfy lts s =
         Box a f -> all (\s' -> s' ⊩ f) (image s a)
 ```
 
+For a formula $phi$, its denoation $[|phi|] subset.eq S$ is recursively defined as follows:
+$
+[|tt|] &= S & [|ff|] &= emptyset \
+[| phi_1 and phi_2 |] &= [|phi_1|] inter [|phi_2|] & [| phi_1 or phi_2 |] &= [|phi_1|] union [|phi_2|] \
+[| chevron.l a chevron.r phi |] &= {s | exists s'. s' in "image"(s, a) and s' in [|phi|] }  & [|[a]phi|] &= {s | forall s'. s' in "image"(s, a) -> s' in [|phi|] } \
+$
+#proposition[Semantic Equivalence][
+$s satisfies phi "iff" s in [|phi|]$
+]
+#proof[ Structural induction on $phi$. ]
+
+This tells us $[|phi|]$ contains all states that _satisfy_ $phi$. We can use this characterization to implement the denotation in a one-liner:
 ```haskell
-denotation :: FiniteLTS s a -> Form a -> Set s
-denotation lts f = let (⊩) = satisfy lts in S.filter (\s -> s ⊩ f) lts.states
+denote :: FiniteLTS s a -> Form a -> Set s
+denote lts f = let (⊩) = satisfy lts in S.filter (\s -> s ⊩ f) lts.states
 ```
+Negation is not primitive in HML. This is not a problem because HML is closed under negation.
+#proposition[Closure under Negation][
+For every $phi in "Form"$, there exists $not phi in "Form"$ such that $[|not phi|] = S without [|phi|]$ for every LTS
+]
+#proof[ Structural induction on $phi$. ]
+
+This means whenever $phi$ is a formula, there is also a formula expressing $not phi$ true exactly at the states where $phi$ is false. Subsequently, for all $s in S$, $s satisfies not phi$ iff $s satisfies.not phi$.
