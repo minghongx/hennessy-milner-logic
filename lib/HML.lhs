@@ -80,3 +80,8 @@ satisfy lts s = \case
     Dia a  f  -> any (\s' -> satisfy lts s' f) (image lts s a)
     Box a  f  -> all (\s' -> satisfy lts s' f) (image lts s a)
 ```
+
+```haskell
+denotation :: FiniteLTS s a -> Form a -> Set s
+denotation lts f = S.filter (\s -> satisfy lts s f) lts.states
+```

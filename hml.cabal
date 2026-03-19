@@ -18,6 +18,7 @@ common defaults
     default-extensions:
         GADTSyntax
         NamedFieldPuns
+        OverloadedRecordDot
         LambdaCase
         TupleSections
     ghc-options:
