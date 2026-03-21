@@ -19,13 +19,14 @@ type Set = HashSet
 
 #let tt = math.italic("tt")
 #let ff = math.italic("ff")
+#let Act = math.italic("Act")
 
-Given a set of actions Act, a formula of HML is defined by the BNF grammar:
-$ phi ::= tt | ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in "Act" $
+Given a set of actions $Act$, a formula of HML is defined by the BNF grammar:
+$ phi ::= tt | ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in Act $
 $tt$ and $ff$ denote the formulae that are valid at every state and at no state, respectively. \
-$chevron.l a chevron.r phi$ denotes that it is possible to perform $a$-transition to a sate satisfying $phi$; whereas $[a]phi$ denotes that $a$-transition necessarily leads to a sate satisfiying $phi$.
+$chevron.l a chevron.r phi$ denotes that it is possible to perform $a$-transition to a state satisfying $phi$; whereas $[a]phi$ denotes that $a$-transition necessarily leads to a state satisfying $phi$.
 
-We define formulae in Haskell as an inductive data type parametric in the Act type.
+We define formulae in Haskell as an recursive data type parametric in the action type.
 ```haskell
 data Form a
     = TT | FF
@@ -61,7 +62,7 @@ diaS as p = S.foldr (\a acc -> Dis (Dia a p) acc) FF as
 boxS :: Set a -> Form a -> Form a
 boxS as p = S.foldr (\a acc -> Con (Box a p) acc) TT as
 ```
-They make common expression, such as _deadlock_ $["Act"]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r #h(0pt,weak:true) tt and ["Act" without {a}]ff$, much more perspicuous.
+They make common expression, such as _deadlock_ $[Act]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r #h(0pt,weak:true) tt and [Act without {a}]ff$, much more perspicuous.
 
 /*
 ```haskell
@@ -100,7 +101,7 @@ satisfy lts s =
         Box a f -> all (\s' -> s' ⊩ f) (image s a)
 ```
 
-For a formula $phi$, its denoation $[|phi|] subset.eq S$ is recursively defined as follows:
+For a formula $phi$, its denotation $[|phi|] subset.eq S$ is recursively defined as follows:
 $
 [|tt|] &= S & [|ff|] &= emptyset \
 [| phi_1 and phi_2 |] &= [|phi_1|] inter [|phi_2|] & [| phi_1 or phi_2 |] &= [|phi_1|] union [|phi_2|] \

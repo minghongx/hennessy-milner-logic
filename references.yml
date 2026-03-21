@@ -1,3 +1,19 @@
+hml:
+  type: article
+  title: Algebraic laws for nondeterminism and concurrency
+  author: ["Hennessy, Matthew", "Milner, Robin"]
+  date: 1985-01
+  page-range: 137-161
+  serial-number:
+    doi: "10.1145/2455.2460"
+  parent:
+    title: Journal of the ACM
+    volume: 32
+    issue: 1
+    publisher:
+      name: Association for Computing Machinery
+      location: New York
+
 hml-cslib:
   type: misc
   title: Hennessy-Milner Logic in CSLib, the Lean Computer Science Library
@@ -6,3 +22,8 @@ hml-cslib:
   serial-number:
     doi: "10.48550/arXiv.2602.15409"
     arxiv: "2602.15409"
+
+haskell-graph:
+  type: thread
+  title: Functional representations of Graphs
+  url: https://discourse.haskell.org/t/functional-representations-of-graphs/13016
