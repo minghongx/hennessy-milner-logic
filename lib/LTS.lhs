@@ -1,9 +1,9 @@
-= Labelled transition system
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
-
 #let definition = definition.with(color: black)
 #let proposition = proposition.with(color: gray)
+
+= Labelled transition system
 
 /*
 ```haskell
@@ -17,7 +17,7 @@ import qualified Data.HashMap.Strict as M
 ```
 */
 
-A transition system describle the behaviour of discrete systems (state space is discrete). It consists of states and transitions between states. From any given state, the future behaviour of the system is independent from how the state is reached.
+A transition system describle the behaviour of discrete (state space is discrete) state-changing systems. It consists of states and transitions between states. From any given state, the future behaviour of the system is independent from how the state is reached.
 
 A labelled transition system is a type of transition system whose transition has a label, indicating the cause of the transition or an action resulting from the transition.
 

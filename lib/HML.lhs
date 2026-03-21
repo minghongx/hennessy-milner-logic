@@ -1,8 +1,8 @@
-= Hennessy–Milner logic
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
-
 #let proposition = proposition.with(color: gray)
+
+= Hennessy–Milner logic
 
 /*
 ```haskell
