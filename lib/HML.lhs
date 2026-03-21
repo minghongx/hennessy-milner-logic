@@ -1,3 +1,4 @@
+= Hennessy–Milner logic
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
 
@@ -16,6 +17,8 @@ import qualified Data.HashSet as S
 type Set = HashSet
 ```
 */
+
+== Syntax
 
 #let tt = math.italic("tt")
 #let ff = math.italic("ff")
@@ -77,6 +80,8 @@ instance Show a => Show (Form a) where
 ```
 */
 
+== Satisfaction relation
+
 #let satisfies = math.forces
 
 Suppose $s$ is a state in a LTS. Then we recursively define the notion of a formula $phi$ being _satisfied_ in LTS at state $s$ as follow:
@@ -100,6 +105,8 @@ satisfy lts s =
         Dia a f -> any (\s' -> s' ⊩ f) (image s a)
         Box a f -> all (\s' -> s' ⊩ f) (image s a)
 ```
+
+== Denotational semantics
 
 For a formula $phi$, its denotation $[|phi|] subset.eq S$ is recursively defined as follows:
 $

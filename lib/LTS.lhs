@@ -1,3 +1,4 @@
+= Labelled transition system
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
 
@@ -76,7 +77,7 @@ Since every subset of finite set is finite and $"image"(s, a) subset.eq S$.
 
 Since we also assume finite-label, it is worth noting that it is finitely branching.
 #definition(color: gray)[Finitely Branching][
-An LTS _finitely branching_ if it is image-finite and all states have finite sets of
+An LTS is _finitely branching_ if it is image-finite and all states have finite sets of
 outgoing labels.
 ]
 
@@ -102,3 +103,7 @@ Notice that LTS allows a state to have multiple outgoing transitions with the sa
 #definition(color: gray)[Deterministic][
 An LTS is _deterministic_ if for every two transitions $s transition^a s'$ and $s transition^a s''$ it holds that $s' = s''$.
 ]
+```haskell
+isDeterministic :: FiniteLTS s a -> Bool
+isDeterministic FiniteLTS{images} = all ((<= 1) . S.size) (M.elems images)
+```
