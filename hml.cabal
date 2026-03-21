@@ -29,7 +29,7 @@ library
     import:           defaults
     hs-source-dirs:   lib
     exposed-modules:  HML
-    other-modules:    LTS
+    other-modules:    LTS, Bisim
     build-depends:
         base ^>=4.22.0.0
       , unordered-containers ^>=0.2.21, hashable

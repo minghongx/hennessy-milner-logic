@@ -48,7 +48,7 @@
 
 = Introduction
 
-#definition[Model Checking][
+#definition[Model Checking @2007-turing-award][
 Given a system _Sys_ and a specification _Spec_, does _Sys_ satisfy _Spec_?
 - Represent _Sys_ as a Model $M$
 - Express _Spec_ as a formula $phi$ of a (decidable) logic
@@ -59,6 +59,8 @@ Given a system _Sys_ and a specification _Spec_, does _Sys_ satisfy _Spec_?
 #include "lib/LTS.lhs"
 #pagebreak()
 #include "lib/HML.lhs"
+#pagebreak()
+#include "lib/Bisim.lhs"
 
 #pagebreak()
 #bibliography("references.yml",

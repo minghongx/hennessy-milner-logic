@@ -1,3 +1,19 @@
+2007-turing-award:
+  type: article
+  title: "Model checking: algorithmic verification and debugging"
+  author: ["Clarke, Edmund M.", "Emerson, E. Allen", "Sifakis, Joseph"]
+  date: 2009-11
+  page-range: 74-84
+  serial-number:
+    doi: "10.1145/1592761.1592781"
+  parent:
+    title: Communications of the ACM
+    volume: 52
+    issue: 11
+    publisher:
+      name: Association for Computing Machinery
+      location: New York
+
 hml:
   type: article
   title: Algebraic laws for nondeterminism and concurrency
