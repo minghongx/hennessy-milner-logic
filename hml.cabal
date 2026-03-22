@@ -28,8 +28,7 @@ common defaults
 library
     import:           defaults
     hs-source-dirs:   lib
-    exposed-modules:  HML
-    other-modules:    LTS, Bisim
+    exposed-modules:  HML, LTS, Bisim
     build-depends:
         base ^>=4.22.0.0
       , unordered-containers ^>=0.2.21, hashable

@@ -101,7 +101,8 @@ fromTransitions ts =
 
 Notice that LTS allows a state to have multiple outgoing transitions with the same label, so it is generally nondeterministic.
 #definition(color: gray)[Deterministic][
-An LTS is _deterministic_ if for every two transitions $s transition^a s'$ and $s transition^a s''$ it holds that $s' = s''$.
+An LTS is _deterministic_ if for every two transitions $s transition^a s'$ and $s transition^a s''$ it holds that $s' = s''$. \
+In other words, $|"image"(s,a)| lt.eq 1$.
 ]
 ```haskell
 isDeterministic :: FiniteLTS s a -> Bool
