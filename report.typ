@@ -61,6 +61,8 @@ Given a system _Sys_ and a specification _Spec_, does _Sys_ satisfy _Spec_?
 #include "lib/HML.lhs"
 #pagebreak()
 #include "lib/Bisim.lhs"
+#pagebreak()
+#include "lib/Distinguish.lhs"
 
 #pagebreak()
 #bibliography("references.yml",

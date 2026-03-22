@@ -39,6 +39,14 @@ hml-cslib:
     doi: "10.48550/arXiv.2602.15409"
     arxiv: "2602.15409"
 
+distinguish:
+  type: article
+  title: Computing minimal distinguishing Hennessy-Milner formulas is NP-hard, but variants are tractable
+  author: ["Martens, Jan", "Groote, Jan Friso"]
+  date: 2023-09-07
+  serial-number:
+    doi: "10.4230/LIPIcs.CONCUR.2023.32"
+
 haskell-graph:
   type: thread
   title: Functional representations of Graphs
