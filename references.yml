@@ -47,6 +47,19 @@ distinguish:
   serial-number:
     doi: "10.4230/LIPIcs.CONCUR.2023.32"
 
+van-benthem:
+  type: article
+  title: Logic of transition systems
+  author: ["van Benthem, Johan", "Bergstra, Jan"]
+  date: 1994
+  page-range: 247-283
+  serial-number:
+    doi: "10.1007/BF01160018"
+  parent:
+    title: Journal of Logic, Language and Information
+    volume: 3
+    issue: 4
+
 haskell-graph:
   type: thread
   title: Functional representations of Graphs

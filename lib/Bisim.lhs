@@ -1,6 +1,7 @@
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
 #let definition = definition.with(color: black)
+#let gray = rgb("#797979")
 #let proposition = proposition.with(color: gray)
 
 #let Act = math.italic("Act")

@@ -1,6 +1,7 @@
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
 #let definition = definition.with(color: black)
+#let gray = rgb("#797979")
 #let proposition = proposition.with(color: gray)
 
 = Labelled transition system
@@ -33,6 +34,10 @@ For $(s, a, s') in med transition$ we write $s transition^a s'$.
 ]
 Note that $S$ and $Act$ are not necessarily finite or even countable. Since the importance of infinity for LTS is unclear, and it is also unclear how to express infinity using Haskell's type system, we chose to consider only the subclass of LTS whose states and labels are both finite.
 
+#remark[
+The difference between a finite LTS and a finite automaton is that the latter has designated final states, because its purpose is to output the result of the computation upon termination. Although the former does not have final states, we can use logical formulae to describe certain states as "final," such as _deadlock_ states.
+]
+
 We define finite-state finite-label LTS in Haskell as a generalized algebraic data type parametric in the state and action type.
 ```haskell
 type Set = HashSet -- unordered finite set
@@ -47,6 +52,13 @@ data FiniteLTS s a where
     } ->
     FiniteLTS s a
 ```
+#remark(
+    variant: "TODO",
+    title: "Type-driven design",
+    color: rgb("#d1242f")
+)[
+What I actually had in mind was not to represent things using the type `Set x`. Rather, the states should just be all inhabitants of a finite type `s`, the labels all inhabitants of a finite type `a`, and the transition function a Map from an inhabitant of `(s, a)` to some inhabitants of `s`. I just do not know how to express this in Haskell's type system.
+]
 We note that this differs somewhat from its mathematical definition: we replaced the set of transitions with a map of images.
 
 #definition[Image][

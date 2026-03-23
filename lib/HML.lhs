@@ -1,5 +1,6 @@
 #import "@preview/thmbox:0.3.0": *
 #show: thmbox-init()
+#let gray = rgb("#797979")
 #let proposition = proposition.with(color: gray)
 
 = Hennessy–Milner logic
