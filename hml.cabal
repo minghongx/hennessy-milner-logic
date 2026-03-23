@@ -7,7 +7,7 @@ synopsis:           Hennessy–Milner logic
 stability:          alpha
 
 author:             Minghong Xu
-maintainer:         github@minghongxu.name
+maintainer:         minghong.xu@student.uva.nl
 
 source-repository head
   type: git
