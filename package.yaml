@@ -1,0 +1,29 @@
+name:                hml
+version:             0.1
+category:            Logic
+synopsis:            Hennessy–Milner logic
+description:         Please see report.typ
+author:              "Minghong Xu"
+
+extra-source-files:
+- readme.md
+- report.typ
+- slides.typ
+- references.yaml
+- unlit.hs
+
+language: GHC2024
+default-extensions:
+- OverloadedRecordDot
+
+ghc-options:
+- -Wall
+- -pgmL ./unlit
+
+dependencies:
+- base
+- unordered-containers
+- hashable
+
+library:
+  source-dirs: lib
