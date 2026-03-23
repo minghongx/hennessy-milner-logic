@@ -69,7 +69,7 @@ Set-theoretically, $(s,t) in med ~ med arrow.l.r.long exists R. med (s,t) in R a
 
 #proposition[][
 Bisimilarity is the unique largest bisimulation.
-]
+] <largest-bisim>
 #proof[
 The class of bisimulations is closed under union; hence, $~$ is itself a bisimulation. Since it is the union of all bisimulations, it is the unique largest bisimulation.
 ]
@@ -94,6 +94,9 @@ forall_(t' in "image"(t,a)) exists_(s' in "image"(s,a)) (s', t') in R
 $
 
 Bisimilarity is then defined as the greatest fixed point of $F$.
+]
+#remark[
+Knaster–Tarski theorem guarantees the existence of a greatest fixed point of $F$.
 ]
 ```haskell
 bisimilarity :: FiniteLTS s a -> Relation s

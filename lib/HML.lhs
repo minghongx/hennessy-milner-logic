@@ -127,8 +127,8 @@ denote lts f = let (⊩) = satisfy lts in S.filter (\s -> s ⊩ f) lts.states
 ```
 Negation is not primitive in HML. This is not a problem because HML is closed under negation.
 #proposition[Closure under Negation][
-For every $phi in "Form"$, there exists $not phi in "Form"$ such that $[|not phi|] = S without [|phi|]$ for every LTS
+For every HML formula $phi$, there exists $not phi$ such that $[|not phi|] = S without [|phi|]$ for every LTS
 ]
 #proof[ Structural induction on $phi$. ]
 
-This means whenever $phi$ is a formula, there is also a formula expressing $not phi$ true exactly at the states where $phi$ is false. Subsequently, for all $s in S$, $s satisfies not phi$ iff $s satisfies.not phi$.
+This means whenever $phi$ is a HML formula, there is also a formula expressing $not phi$ true exactly at the states where $phi$ is false, namely, for all $s in S$, $s satisfies not phi$ iff $s satisfies.not phi$. In this sense, negation is redundant.
