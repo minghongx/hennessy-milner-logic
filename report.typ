@@ -72,7 +72,7 @@ This report is organized as follows. In @LTS, we define image-finite labelled tr
 = Coda
 
 #pagebreak()
-#bibliography("references.yml",
+#bibliography("references.yaml",
   title: "References",
   style: "association-for-computing-machinery",
   full: true,
