@@ -10,7 +10,7 @@
 #let Act = math.italic("Act")
 #let transition = math.stretch($->$, size: 1.3em)
 
-= Computing minimal distinguishing formulae
+= Computing minimal distinguishing formulae <Distinguish>
 
 /*
 ```haskell

@@ -4,7 +4,7 @@
 #let gray = rgb("#797979")
 #let proposition = proposition.with(color: gray)
 
-= Labelled transition system
+= Labelled transition system <LTS>
 
 /*
 ```haskell

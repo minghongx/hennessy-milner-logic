@@ -3,7 +3,7 @@
 #let gray = rgb("#797979")
 #let proposition = proposition.with(color: gray)
 
-= Hennessy–Milner logic
+= Hennessy–Milner logic <HML>
 
 /*
 ```haskell

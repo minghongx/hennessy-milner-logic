@@ -7,7 +7,7 @@
 #let Act = math.italic("Act")
 #let transition = math.stretch($->$, size: 1.3em)
 
-= Bisimulation
+= Bisimulation <Bisim>
 
 /*
 ```haskell
