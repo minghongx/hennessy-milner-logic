@@ -40,18 +40,6 @@ data Form a
     | Box a (Form a)
     deriving (Eq)
 ```
-We recover negation as a function that transforms a formula into its negated form.
-```haskell
-neg :: Form a -> Form a
-neg = \case
-    TT -> FF
-    FF -> TT
-    Con f1 f2 -> Dis (neg f1) (neg f2)
-    Dis f1 f2 -> Con (neg f1) (neg f2)
-    Dia a f -> Box a (neg f)
-    Box a f -> Dia a (neg f)
-```
-Treating $ff$ as primitive and negation as derived has a technical advantage: recursive definitions on the structure of formulae (e.g. satisfaction relation) can be given in a uniform way.
 
 We introduce two abbreviations for sets of actions:
 $
@@ -132,3 +120,16 @@ For every HML formula $phi$, there exists $not phi$ such that $[|not phi|] = S w
 #proof[ Structural induction on $phi$. ]
 
 This means whenever $phi$ is a HML formula, there is also a formula expressing $not phi$ true exactly at the states where $phi$ is false, namely, for all $s in S$, $s satisfies not phi$ iff $s satisfies.not phi$. In this sense, negation is redundant.
+
+We recover negation as a function that transforms a formula into its negated form.
+```haskell
+neg :: Form a -> Form a
+neg = \case
+    TT -> FF
+    FF -> TT
+    Con f1 f2 -> Dis (neg f1) (neg f2)
+    Dis f1 f2 -> Con (neg f1) (neg f2)
+    Dia a f -> Box a (neg f)
+    Box a f -> Dia a (neg f)
+```
+Treating negation as derived has a technical advantage: recursive definitions on the structure of formulae (e.g. satisfaction relation) can be given in a uniform way.
