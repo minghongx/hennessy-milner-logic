@@ -1,7 +1,3 @@
-*.cabal
 .stack-work/
-dist-*
+/hml.cabal
 /*.pdf
-/unlit
-/unlit.hi
-/unlit.o

@@ -1,29 +1,34 @@
+spec-version:        0.36.0
+
 name:                hml
 version:             0.1
 category:            Logic
 synopsis:            Hennessy–Milner logic
-description:         Please see report.typ
+description:         Please see the report.typ
+
 author:              "Minghong Xu"
+license:             PublicDomain
+github:              minghongx/hennessy-milner-logic
 
 extra-source-files:
+- unlit/*
 - readme.md
 - report.typ
 - slides.typ
 - references.yaml
-- unlit.hs
 
 language: GHC2024
 default-extensions:
 - OverloadedRecordDot
 
-ghc-options:
-- -Wall
-- -pgmL ./unlit
-
 dependencies:
-- base
-- unordered-containers
-- hashable
+- base >= 4.20 && < 5
+- hashable ^>= 1.5
+- unordered-containers ^>= 0.2
 
 library:
   source-dirs: lib
+  build-tools: unlit
+  ghc-options:
+  - -Wall
+  - -pgmL unlit

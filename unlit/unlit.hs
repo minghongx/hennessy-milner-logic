@@ -1,5 +1,3 @@
--- Copy from https://tangled.org/oppi.li/typst-unlit
-
 import System.Environment (getArgs)
 import System.Exit        (die)
 main = do
@@ -19,7 +17,6 @@ data State
 withTag :: (String -> Bool) -> String -> Bool
 withTag pred line = length ticks > 2 && pred tag
     where (ticks, tag) = span (== '`') line
-
 isHaskell :: String -> Bool
 isHaskell = withTag (== "haskell")
 isHaskellTop = withTag (== "haskell-top")

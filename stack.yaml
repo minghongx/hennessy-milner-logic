@@ -2,3 +2,6 @@ snapshot: lts-24.34
 
 packages:
 - .
+
+extra-deps:
+- unlit
