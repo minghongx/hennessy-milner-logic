@@ -6,7 +6,7 @@ category:            Logic
 synopsis:            Hennessy–Milner logic
 description:         Please see the report.typ
 
-author:              "Minghong Xu"
+author:              Minghong Xu
 license:             PublicDomain
 github:              minghongx/hennessy-milner-logic
 
