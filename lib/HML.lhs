@@ -23,8 +23,8 @@ type Set = HashSet
 
 == Syntax
 
-#let tt = math.italic("tt")
-#let ff = math.italic("ff")
+#let tt = h(0pt,weak:true) + math.italic("tt")
+#let ff = h(0pt,weak:true) + math.italic("ff")
 #let Act = math.italic("Act")
 
 Given a set of actions $Act$, a formula of HML is defined by the BNF grammar:
@@ -64,7 +64,7 @@ boxS as f =
     [] -> TT
     fs -> foldr1 Con fs
 ```
-They make common expression, such as _deadlock_ $[Act]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r #h(0pt,weak:true) tt and [Act without {a}]ff$, much more perspicuous.
+They make common expression, such as _deadlock_ $[Act]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r tt and [Act without {a}]ff$, much more perspicuous.
 
 /*
 ```haskell
