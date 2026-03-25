@@ -16,7 +16,15 @@
 ```haskell
 module Distinguish where
 
-import HML
+import HML (Form(..), neg)
+import LTS (FiniteLTS(..))
+import qualified LTS
+import Bisim (bisimilar)
+
+import Data.HashSet (HashSet)
+import qualified Data.HashSet as S
+
+type Set = HashSet
 ```
 */
 
@@ -91,7 +99,7 @@ So, unfortunately, there is currently no algorithm that computes a minimal HML d
 The largest number of nested modalities in a formula is its _modal-depth_.
 ]
 ```haskell
-modalDepth :: Form a -> Int
+modalDepth :: Form a -> Integer
 modalDepth = \case
     TT -> 0
     FF -> 0
@@ -99,4 +107,85 @@ modalDepth = \case
     Dis f1 f2 -> max (modalDepth f1) (modalDepth f2)
     Dia _ f -> modalDepth f + 1
     Box _ f -> modalDepth f + 1
+```
+
+```haskell
+kBisimilar :: FiniteLTS s a -> Integer -> s -> s -> Bool
+kBisimilar _ k _ _ | k <= 0 = True
+kBisimilar lts@FiniteLTS{labels} k s t =
+  let image = LTS.image lts
+   in all
+        ( \a ->
+            all
+              ( \s' ->
+                  any
+                    (\t' -> kBisimilar lts (k - 1) s' t')
+                    (image t a)
+              )
+              (image s a)
+              &&
+            all
+              ( \t' ->
+                  any
+                    (\s' -> kBisimilar lts (k - 1) t' s')
+                    (image s a)
+              )
+              (image t a)
+        )
+        labels
+```
+
+```haskell
+data Depth
+  = Depth Integer
+  | Infinity
+  deriving (Eq, Ord, Show)
+
+minModalDepth :: FiniteLTS s a -> s -> s -> Depth
+minModalDepth lts s t
+  | bisimilar lts s t = Infinity
+  | otherwise = Depth (search 1)
+  where
+    search k
+      | kBisimilar lts k s t = search (k + 1)
+      | otherwise = k
+```
+
+```haskell
+delta :: FiniteLTS s a -> Integer -> s -> s -> Set (a, s)
+delta lts@FiniteLTS{labels} i s t =
+  let image = LTS.image lts
+   in S.fromList
+        [ (a, s')
+        | a  <- S.toList labels
+        , s' <- S.toList (image s a)
+        , all
+            (\t' -> minModalDepth lts s' t' <= Depth (i - 1))
+            (image t a)
+        ]
+```
+
+```haskell
+distinguish :: FiniteLTS s a -> s -> s -> Form a
+distinguish lts s t =
+  case minModalDepth lts s t of
+    Infinity -> error "distinguish: the given states are bisimilar"
+    Depth i ->
+      let image = LTS.image lts
+          deltai = delta lts i s t
+       in case select deltai of
+            Nothing ->
+              neg $ distinguish lts t s
+            Just (a, s') ->
+              Dia a $
+                iteratedCon $
+                  distinguish lts s' <$> (S.toList $ image t a)
+
+select :: Set x -> Maybe x
+select = S.foldr (\x _ -> Just x) Nothing
+
+-- https://en.wikipedia.org/wiki/Iterated_binary_operation
+iteratedCon :: [Form a] -> Form a
+iteratedCon [] = TT
+iteratedCon fs = foldr1 Con fs
 ```

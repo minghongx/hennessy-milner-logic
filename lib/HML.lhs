@@ -49,10 +49,16 @@ wide wide
 $
 ```haskell
 diaS :: Set a -> Form a -> Form a
-diaS as p = S.foldr (\a acc -> Dis (Dia a p) acc) FF as
+diaS as f =
+  case (\a -> Dia a f) <$> S.toList as of
+    [] -> FF
+    fs -> foldr1 Dis fs
 
 boxS :: Set a -> Form a -> Form a
-boxS as p = S.foldr (\a acc -> Con (Box a p) acc) TT as
+boxS as f =
+  case (\a -> Box a f) <$> S.toList as of
+    [] -> TT
+    fs -> foldr1 Con fs
 ```
 They make common expression, such as _deadlock_ $[Act]ff$ and _$a$-transition must happen next_ $chevron.l a chevron.r #h(0pt,weak:true) tt and [Act without {a}]ff$, much more perspicuous.
 
