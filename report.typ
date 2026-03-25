@@ -73,6 +73,13 @@ This report is organized as follows. In @LTS, we define image-finite labelled tr
 
 = Coda
 
+#remark(
+    variant: "TODO",
+    color: rgb("#d1242f")
+)[
+Put into a bench or test and include it here
+]
+
 #let Act = math.italic("Act")
 #let transition = math.stretch($->$, size: 1.3em)
 #let tt = h(0pt,weak:true) + math.italic("tt")
