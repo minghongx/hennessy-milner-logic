@@ -167,7 +167,7 @@ delta lts@FiniteLTS{labels} i s t =
 
 ```haskell
 distinguish :: FiniteLTS s a -> s -> s -> Form a
-distinguish lts s t =
+distinguish lts@FiniteLTS{} s t =
   case minModalDepth lts s t of
     Infinity -> error "distinguish: the given states are bisimilar"
     Depth i ->
@@ -179,13 +179,14 @@ distinguish lts s t =
             Just (a, s') ->
               Dia a $
                 iteratedCon $
-                  distinguish lts s' <$> (S.toList $ image t a)
+                  S.map (distinguish lts s') (image t a)
 
 select :: Set x -> Maybe x
 select = S.foldr (\x _ -> Just x) Nothing
 
 -- https://en.wikipedia.org/wiki/Iterated_binary_operation
-iteratedCon :: [Form a] -> Form a
-iteratedCon [] = TT
-iteratedCon fs = foldr1 Con fs
+iteratedCon :: Set (Form a) -> Form a
+iteratedCon fs
+  | S.null fs = TT
+  | otherwise = foldr1 Con (S.toList fs)
 ```

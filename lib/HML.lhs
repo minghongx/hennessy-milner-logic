@@ -12,6 +12,8 @@ module HML where
 import LTS (FiniteLTS(..))
 import qualified LTS
 
+import GHC.Generics (Generic)
+import Data.Hashable
 import Data.HashSet (HashSet)
 import qualified Data.HashSet as S
 
@@ -38,7 +40,9 @@ data Form a
     | Dis (Form a) (Form a)
     | Dia a (Form a)
     | Box a (Form a)
-    deriving (Eq)
+    deriving (Eq, Generic)
+
+instance Hashable a => Hashable (Form a)
 ```
 
 We introduce two abbreviations for sets of actions:
