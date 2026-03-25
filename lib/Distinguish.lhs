@@ -95,6 +95,13 @@ So, unfortunately, there is currently no algorithm that computes a minimal HML d
 
 == An efficient algorithm for minimal modal-depth
 
+#remark(
+    variant: "TODO",
+    color: rgb("#d1242f")
+)[
+Explain
+]
+
 #definition[Modal-depth][
 The largest number of nested modalities in a formula is its _modal-depth_.
 ]
@@ -109,6 +116,13 @@ modalDepth = \case
     Box _ f -> modalDepth f + 1
 ```
 
+#definition()[k-bisimilar][
+$
+scripts(~)_0 med &=& {(s, t) &|& &s, t ∈ S} \
+scripts(~)_(k+1) &=& {(s, t) &|& &forall_(s' in "image"(s, a)) exists_(t' in "image"(t,a)) (s', t') in med scripts(~)_(k), quad "and" \
+  &&&& &forall_(t' in "image"(t, a)) exists_(s' in "image"(s,a)) (t', s') in med scripts(~)_(k) }
+$
+]
 ```haskell
 kBisimilar :: FiniteLTS s a -> Integer -> s -> s -> Bool
 kBisimilar _ k _ _ | k <= 0 = True
@@ -135,6 +149,13 @@ kBisimilar lts@FiniteLTS{labels} k s t =
         labels
 ```
 
+#definition()[Minimal modal-depth][
+The minimal modal-depth $Delta : S times S -> NN union {infinity}$ is defined by
+$ Delta(s, t) := cases(
+  i quad &"if" s scripts(tilde.not)_i t "and" s scripts(~)_(i-1) t,
+  infinity quad &"if" s ~ t,
+) $
+]
 ```haskell
 data Depth
   = Depth Integer
@@ -151,6 +172,11 @@ minModalDepth lts s t
       | otherwise = k
 ```
 
+#definition()[][
+$
+delta_i (s, t) := {(a, s') | exists_(a in #h(0pt,weak:true) Act) exists_(s' in "image"(s,a)) forall_(t' in "image"(t,a)) med Delta(s', t') lt.eq i - 1 }
+$
+]
 ```haskell
 delta :: FiniteLTS s a -> Integer -> s -> s -> Set (a, s)
 delta lts@FiniteLTS{labels} i s t =
