@@ -69,7 +69,47 @@ This report is organized as follows. In @LTS, we define image-finite labelled tr
 #include "lib/Distinguish.lhs"
 #pagebreak()
 
+#import "@preview/fletcher:0.5.8" as fletcher: diagram, node, edge
+
 = Coda
+
+#let Act = math.italic("Act")
+#let transition = math.stretch($->$, size: 1.3em)
+#let tt = h(0pt,weak:true) + math.italic("tt")
+#let ff = h(0pt,weak:true) + math.italic("ff")
+
+#figure(
+diagram(
+spacing: 4em,
+node((0,0), `s0`),
+edge(`a`, "-|>"),
+node((1,0), `s1`),
+edge((1,0), (0,0), `b`, "-|>", bend: -60deg),
+edge(`a`, "-|>"),
+node((2,0), `s2`),
+),
+caption: [A test LTS whose $S = {"s0", "s1", "s2"}$ and $Act = {a, b}$],
+gap: 1.2em,
+) <testLTS>
+
+We construct in Haskell the LTS shown in @testLTS.
+```haskell
+ghci> test = LTS.fromTransitions [("s0",'a',"s1"), ("s1",'a',"s2"), ("s1",'b',"s0")]
+```
+
+The formula $phi_1 = chevron.l a chevron.r chevron.l a chevron.r tt$ distinguishes $s_0$ and $s_1$ since $s_0 in [|phi_1|]$ and $s_1 in.not [|phi_1|]$.
+```haskell
+ghci> denote test (Dia 'a' $ Dia 'a' TT)
+fromList ["s0"]
+```
+
+However, it is not minimal since $phi_2 = [b] ff$ also distinguishes $s_0$ and $s_1$ with fewer modalities.
+```haskell
+ghci> distinguish test "s0" "s1"
+['b']ff
+ghci> denote test $ distinguish test "s0" "s1"
+fromList ["s0", "s2"]
+```
 
 #pagebreak()
 #bibliography("references.yaml",
