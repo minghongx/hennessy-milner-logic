@@ -113,6 +113,9 @@ This tells us $[|phi|]$ contains all states that _satisfy_ $phi$. We can use thi
 denote :: FiniteLTS s a -> Form a -> Set s
 denote lts f = let (⊩) = satisfy lts in S.filter (\s -> s ⊩ f) lts.states
 ```
+
+== Negation
+
 Negation is not primitive in HML. This is not a problem because HML is closed under negation.
 #proposition[Closure under Negation][
 For every HML formula $phi$, there exists $not phi$ such that $[|not phi|] = S without [|phi|]$ for every LTS
