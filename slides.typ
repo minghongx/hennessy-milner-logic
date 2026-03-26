@@ -37,7 +37,7 @@
   Minghong Xu
   #v(1em)
 
-  March 27
+  27 March 2026
 ] <touying:hidden>
 
 == Background <touying:hidden>
