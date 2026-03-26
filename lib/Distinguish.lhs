@@ -91,7 +91,7 @@ Deciding MIN-DIST is NP-hard, and it is not in NP.
 ]
 #proof[ By a reduction from CNF-SAT. See @distinguish. ]
 
-So, unfortunately, there is currently no algorithm that computes a minimal HML distinguishing formula. But if we measure the size of a formula in a different way, rather than by the number of modalities, then efficient algorithms are possible.
+So, unfortunately, there is no algorithm that efficiently computes a minimal HML distinguishing formula. But if we measure the size of a formula in a different way, rather than by the number of modalities, then efficient algorithms are possible.
 
 == An efficient algorithm for minimal modal-depth
 

@@ -28,7 +28,7 @@ type Set = HashSet
 #let Act = math.italic("Act")
 
 Given a set of actions $Act$, a formula of HML is defined by the BNF grammar:
-$ phi ::= tt | ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in Act $
+$ phi ::= med tt | med ff | phi and phi | phi or phi | chevron.l a chevron.r phi | [a]phi quad "where" a in Act $
 $tt$ and $ff$ denote the formulae that are valid at every state and at no state, respectively. \
 $chevron.l a chevron.r phi$ denotes that it is possible to perform $a$-transition to a state satisfying $phi$; whereas $[a]phi$ denotes that $a$-transition necessarily leads to a state satisfying $phi$.
 
@@ -83,9 +83,9 @@ instance Show a => Show (Form a) where
 
 #let satisfies = math.forces
 
-Suppose $s$ is a state in a LTS. Then we recursively define the notion of a formula $phi$ being _satisfied_ in LTS at state $s$ as follow:
+Suppose $s$ is a state in an LTS. Then we recursively define the notion of a formula $phi$ being _satisfied_ in LTS at state $s$ as follow:
 $
-s &satisfies tt #h(6em) && \
+s &satisfies thick tt #h(6em) && \
 s &satisfies phi_1 and phi_2 && "if" s satisfies phi_1 "and" s satisfies phi_2 \
 s &satisfies phi_1 or  phi_2 && "if" s satisfies phi_1 "or"  s satisfies phi_2 \
 s &satisfies chevron.l a chevron.r phi && "if" exists s'. s' in "image"(s, a) and s' satisfies phi \
