@@ -28,7 +28,7 @@ A labelled transition system is a type of transition system whose transition has
 #definition[Labelled Transition System][
 A ($Act$)-labelled transition system (LTS) is a triple $(S, Act, transition)$ consisting of
 - a set $S$ of states
-- a set $Act$ of (actions) label
+- a set $Act$ of (actions) labels
 - a transition relation $transition med subset.eq S times Act times S $
 For $(s, a, s') in med transition$ we write $s transition^a s'$.
 ]
