@@ -68,7 +68,7 @@ Given a system _Sys_ and a specification _Spec_, does _Sys_ satisfy _Spec_?
 #definition[Labelled Transition System][
 An LTS is a triple $(S, Act, transition)$ consisting of
 - a set $S$ of states
-- a set $Act$ of (actions) label
+- a set $Act$ of (actions) labels
 - a transition relation $transition thick subset.eq S times Act times S $
 ]
 
@@ -133,7 +133,7 @@ $s satisfies phi "iff" s in [|phi|]$, in other words, $[|phi|]$ contains all sta
 == Existence of a Distinguishing Formula
 
 #definition[Theory and theory equivalence][
-The _theory_ of a state $s$ is the set of all formulae it satisfies: $"theory(s)" = {phi | s satisfies phi}$. \
+The _theory_ of a state $s$ is the set of all formulas it satisfies: $"theory(s)" = {phi | s satisfies phi}$. \
 $"theoryEq"(s, t) := quad "theory"(s) = "theory"(t)$
 ]
 
@@ -205,7 +205,7 @@ $phi_1 = chevron.l a chevron.r chevron.l a chevron.r tt$ distinguishes $s_0$ and
 
 #pause
 
-However, it is not minimal #pause since $phi_2 = [b] ff$ also distinguishes $s_0$ and $s_1$ with fewer modalities.
+However, it is not minimal #pause since $phi_2 = [b] ff$ also distinguishes $s_0$ and $s_1$ with fewer nested modalities.
 
 = Questions?
 
