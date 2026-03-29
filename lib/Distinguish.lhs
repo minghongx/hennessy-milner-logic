@@ -191,6 +191,8 @@ delta lts@FiniteLTS{labels} i s t =
         ]
 ```
 
+See @distinguish Algorithm 1.
+
 ```haskell
 distinguish :: FiniteLTS s a -> s -> s -> Form a
 distinguish lts@FiniteLTS{} s t =
